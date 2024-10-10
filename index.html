@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Words</title>
+</head>
+<body>
+    <h1 id="result"></h1>
+    <script>
+        let text = "The quick brown fox jumps over the lazy dog. The sun is shining bright and clear. The air is filled with the sweet scent of blooming flowers. The dog is running quickly and jumping high. The fox is trying to catch it, but it is too fast for him.";
+
+        text = text.toLowerCase();
+        text = text.replace(/[^\w\s]/gi, "");
+
+        const words = text.split(" ");
+        let wordCount = {};
+
+        for (let word of words) {
+            if (word) { 
+                wordCount[word] = (wordCount[word] || 0) + 1;
+            }
+        }
+
+        let wordCountArray = Object.entries(wordCount);
+        wordCountArray.sort((a, b) => b[1] - a[1]);
+
+        let topThreeWords = wordCountArray.slice(0, 3).map(entry => `${entry[0]} (${entry[1]})`);
+
+        let resultText = "The top three most common words are: " + topThreeWords.join(", ").toLowerCase();
+
+        console.log(resultText);
+        document.getElementById("result").innerHTML = resultText;
+    </script>
+</body>
+</html>
